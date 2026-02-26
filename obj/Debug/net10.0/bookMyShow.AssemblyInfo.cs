@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("bookMyShow")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f4f82705a07b121765c4e61c6d479e7ae7b80bb3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1f980318f8a6d4964cb0e723554b73bd4a3ff75")]
 [assembly: System.Reflection.AssemblyProductAttribute("bookMyShow")]
 [assembly: System.Reflection.AssemblyTitleAttribute("bookMyShow")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

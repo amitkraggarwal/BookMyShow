@@ -1,32 +1,71 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        // Your application entry point
-    }
-}
-/*
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Microsoft.Extensions.Hosting;
 
-var services = new ServiceCollection();
-services.AddDbContext<AppDbContext>(options =>
+//creates the builder object.
+var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+//adds support for API controllers 
+builder.Services.AddControllers();
+
+//Register services (DI)
+builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IShowRepository, ShowRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IShowSeatRepository, ShowSeatRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IPricingCalculator, PricingCalculator>();
+builder.Services.AddScoped<IPricingCalculator, PricingCalculator>();
+builder.Services.AddScoped<IShowSeatTypeRepository, ShowSeatTypeRepository>();
+//Optional: Add Swagger for API documentation
+
+
+var config = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(config.GetConnectionString("DefaultConnection")));
 
-var serviceProvider = services.BuildServiceProvider();
-using (var context = serviceProvider.GetRequiredService<AppDbContext>())
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+//Configure middleware
+//using Microsoft.Extensions.Hosting;
+
+if (app.Environment.IsDevelopment())
 {
-    // Perform database operations using the context
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
-*/
+//Middleware pipeline for routing and authorization
+app.UseHttpsRedirection();
+app.UseAuthorization();
+
+app.UseRouting();
+
+// This maps the controller actions to the endpoints, allowing them to handle incoming HTTP requests. 
+//It is essential for enabling the functionality of your API controllers. 
+app.MapControllers(); 
 
 /*
-var options = new DbContextOptionsBuilder<AppDbContext>()
-    .UseMySQL(config.GetConnectionString("DefaultConnection"))
-    .Options;
-using (var context = new AppDbContext(options))
+app.UseEndpoints(endpoints =>
 {
-    // Perform database operations using the context
-}
-*/
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "api/{controller=User}/{action=index}/{id?}");
+});
+*/   
+
+app.Run();

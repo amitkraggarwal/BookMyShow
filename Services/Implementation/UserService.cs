@@ -19,8 +19,16 @@ public class UserService : IUserService
         {
             throw new UserExistsException("A user with the same email already exists.");
         }
-   
+       
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.password);
+        user.password = hashedPassword;
+
         return _userRepository.CreateUser(user);
+    }
+
+    public User GetUserByEmail(string email)
+    {
+        return _userRepository.GetUserByEmail(email);
     }
 
     public User GetUserById(int userId)

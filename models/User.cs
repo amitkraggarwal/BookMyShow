@@ -6,7 +6,7 @@ public class User : Basemodel
     public string name { get; set; }
     [MaxLength(50)]
     public string email { get; set; }
-    [MaxLength(50)  ]
+    [MaxLength(500)  ]
     public string password { get; set; }
     [MaxLength(15)]
     public string mobile { get; set; }

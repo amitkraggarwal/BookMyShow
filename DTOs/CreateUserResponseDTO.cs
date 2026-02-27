@@ -3,4 +3,6 @@ public class CreateUserResponseDTO
     public int userId { get; set; }
     
     public ResponseStatus status { get; set; }
+
+    public string message { get; set; }
 }   
